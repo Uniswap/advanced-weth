@@ -23,10 +23,10 @@
     "url": "git+https://github.com/moodysalem/advanced-weth.git"
   },
   "files": [
-    "build",
-    "!build/contracts/WETH9.json",
-    "!build/contracts/Migrations.json",
-    "!build/contracts/TargetContract.json",
+    "build/contracts/AdvancedWETH.json",
+    "build/contracts/IAdvancedWETH.json",
+    "build/contracts/IWETH9.json",
+    "contracts/AdvancedWETH.sol",
     "contracts/interfaces"
   ],
   "keywords": [
