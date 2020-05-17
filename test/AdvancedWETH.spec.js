@@ -82,15 +82,76 @@ contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
     expect(await advancedWeth.weth()).to.eq(weth.address);
   });
 
+  describe('#depositThenCall', () => {
+    afterEach('advancedWeth has no balance', async () => {
+      expect((await weth.balanceOf(advancedWeth.address)).toNumber()).to.eq(0);
+      expect((await getBalance(advancedWeth.address)).toNumber()).to.eq(0);
+    });
+
+    it('can call target contract without any weth', async () => {
+      await targetContract.update(0, 20);
+
+      expect((await weth.balanceOf(account0)).toNumber()).to.eq(0);
+      expect((await weth.balanceOf(targetContract.address)).toNumber()).to.eq(0);
+
+      await recordBalanceBefore(account0);
+      await advancedWeth.depositThenCall(targetContract.address, encodeTargetCallData(weth.address, 20), {
+        value: 25,
+        gasPrice: 0
+      });
+
+      // spends 25, gets back 5
+      await checkBalanceDifference(account0, -20);
+      expect((await weth.balanceOf(account0)).toNumber()).to.eq(0);
+      expect((await weth.balanceOf(targetContract.address)).toNumber()).to.eq(20);
+    });
+  });
+
+  describe('#depositAndTransferFromThenCall', () => {
+    beforeEach('make some weth', async () => {
+      await weth.deposit({ value: 100, from: account0 });
+    });
+
+    afterEach('advancedWeth has no balance', async () => {
+      expect((await weth.balanceOf(advancedWeth.address)).toNumber()).to.eq(0);
+      expect((await getBalance(advancedWeth.address)).toNumber()).to.eq(0);
+    });
+
+    it('can combine weth and eth to call target', async () => {
+      await weth.approve(advancedWeth.address, 20, { from: account0 });
+      await targetContract.update(0, 100); // allow receiving up to 100 weth
+
+      expect((await weth.balanceOf(account0)).toNumber()).to.eq(100); // weth not spent
+      expect((await weth.balanceOf(targetContract.address)).toNumber()).to.eq(0); // target contract empty
+
+      await recordBalanceBefore(account0);
+      await advancedWeth.depositAndTransferFromThenCall(20, targetContract.address, encodeTargetCallData(weth.address, 30), {
+        value: 20,
+        gasPrice: 0
+      });
+
+      // spends 20 eth, 20 weth, gets back 10 weth -> eth
+      await checkBalanceDifference(account0, -10);
+      expect((await weth.balanceOf(account0)).toNumber()).to.eq(80);
+      expect((await weth.balanceOf(targetContract.address)).toNumber()).to.eq(30);
+    });
+  });
+
   describe('#approveAndCall', () => {
     beforeEach('make some weth', async () => {
       await weth.deposit({ value: 100, from: account0 });
+    });
+
+    afterEach('advancedWeth has no balance', async () => {
+      expect((await weth.balanceOf(advancedWeth.address)).toNumber()).to.eq(0);
+      expect((await getBalance(advancedWeth.address)).toNumber()).to.eq(0);
     });
 
     it('fails if weth not approved', async () => {
       await targetContract.update(0, 100);
       await expectError(advancedWeth.approveAndCall(1, targetContract.address, encodeTargetCallData(weth.address, 1)), 'revert');
     });
+
     it('fails if target contract reverts', async () => {
       await targetContract.update(0, 0);
       await expectError(advancedWeth.approveAndCall(1, targetContract.address, encodeTargetCallData(weth.address, 1)), 'revert');
@@ -105,9 +166,9 @@ contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
     it('transfers the called amount weth and refunds remainder as eth', async () => {
       await weth.approve(advancedWeth.address, 100, { from: account0 });
       await targetContract.update(0, 50);
-      await recordBalanceBefore(account0)
-      await advancedWeth.approveAndCall(25, targetContract.address, encodeTargetCallData(weth.address, 20), {gasPrice: 0});
-      await checkBalanceDifference(account0, 5) // 5 refunded as eth of the 25 approved/transferred
+      await recordBalanceBefore(account0);
+      await advancedWeth.approveAndCall(25, targetContract.address, encodeTargetCallData(weth.address, 20), { gasPrice: 0 });
+      await checkBalanceDifference(account0, 5); // 5 refunded as eth of the 25 approved/transferred
       expect((await weth.balanceOf(account0)).toNumber()).to.eq(75); // whole approved amount transferred
       expect((await weth.balanceOf(targetContract.address)).toNumber()).to.eq(20); // target call took 20 of the 25
     });
@@ -152,6 +213,14 @@ contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
     it('fails if to address does not receive eth', async () => {
       await weth.transfer(advancedWeth.address, 25, { from: account0 });
       await expectError(advancedWeth.withdrawTo(targetContract.address, { from: account0 }), 'WITHDRAW_TO_CALL_FAILED');
+    });
+
+    it('succeeds for contract call that receives eth', async () => {
+      await weth.transfer(advancedWeth.address, 25, { from: account0 });
+      await targetContract.update(25, 0);
+      await recordBalanceBefore(targetContract.address);
+      await advancedWeth.withdrawTo(targetContract.address, { from: account0 });
+      await checkBalanceDifference(targetContract.address, 25);
     });
   });
 });
