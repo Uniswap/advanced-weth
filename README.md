@@ -8,10 +8,11 @@ contracts that consume WETH transparently as if they are using ETH directly.
 Requires a single approval from the user for the AdvancedWETH contract
 to spend any amount of their WETH, and thus benefits from widespread use of a
 canonical advanced WETH contract. Because this approval never runs out or expires,
-this is a once-per-account requirement.
+this is a once-per-account requirement to permanently enhance the capabilities of WETH.
 
 The benefit of removing special handling of ETH from your contract is that
-you can reduce your interface size significantly.
+you can reduce your interface size significantly, i.e. you can pretend that ETH
+already implements the ERC20 interface and consume ETH via the `AdvancedWETH` contract.
 
 ## Methods documentation
 
@@ -51,3 +52,7 @@ The AdvancedWETH contract is deployed and verified to the address
 - kovan: https://kovan.etherscan.io/address/0x
 
 It is not deployed to Goerli because WETH is not deployed to Goerli.
+
+## Disclaimer
+
+This contract has not been audited, nor formally verified. Use at your own risk.
