@@ -3,6 +3,9 @@ pragma solidity >=0.4.0;
 // advanced WETH contract. to use, first approve the contract to spend all your WETH.
 // unlocks additional features for your WETH, that allow you to spend and mint and withdraw WETH in a single transaction.
 // also has methods for unwrapping WETH to specific addresses as a callback from other contracts.
+// the assumption is the user wants to use ETH and avoid unnecessary approvals, but wraps/unwraps into WETH only
+// when they want to interact with an ERC20 only protocol.
+// SPDX-License-Identifier: GPL-3.0-or-later
 interface IAdvancedWETH {
     // returns the WETH address that this contract uses
     function weth() external view returns (address payable);

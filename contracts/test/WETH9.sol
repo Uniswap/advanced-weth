@@ -1,5 +1,6 @@
 pragma solidity >=0.6.0;
 
+// SPDX-License-Identifier: GPL-3.0-or-later
 contract WETH9 {
     string public name     = "Wrapped Ether";
     string public symbol   = "WETH";
