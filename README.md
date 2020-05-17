@@ -36,5 +36,6 @@ The AdvancedWETH contract is deployed and verified to the address
 - mainnet: https://etherscan.io/address/0x
 - ropsten: https://ropsten.etherscan.io/address/0x
 - rinkeby: https://rinkeby.etherscan.io/address/0x
-- goerli: https://goerli.etherscan.io/address/0x
 - kovan: https://kovan.etherscan.io/address/0x
+
+It is not deployed to Goerli because WETH is not deployed to Goerli.
