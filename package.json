@@ -13,8 +13,9 @@
   "scripts": {
     "compile": "truffle compile",
     "test": "truffle test",
-    "deploy:testnets": "truffle migrate --network kovan && truffle migrate --network ropsten && truffle migrate --network rinkeby",
-    "deploy:mainnet": "truffle migrate --network mainnet",
+    "deploy": "truffle migrate -f 2 -to 2",
+    "deploy:testnets": "npm run deploy --network kovan && npm run deploy --network ropsten && npm run deploy --network rinkeby",
+    "deploy:mainnet": "npm run deploy --network mainnet",
     "verify:testnets": "truffle run verify AdvancedWETH --network kovan && truffle run verify AdvancedWETH --network ropsten && truffle run verify AdvancedWETH --network rinkeby",
     "verify:mainnet": "truffle run verify AdvancedWETH --network mainnet"
   },
