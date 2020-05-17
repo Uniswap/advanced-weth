@@ -12,11 +12,7 @@
   "scripts": {
     "compile": "truffle compile",
     "test": "truffle test",
-    "deploy": "truffle migrate -f 2 -to 2",
-    "deploy:kovan": "npm run deploy -- --network kovan",
-    "deploy:ropsten": "npm run deploy -- --network ropsten",
-    "deploy:rinkeby": "npm run deploy -- --network rinkey",
-    "deploy:mainnet": "npm run deploy -- --network mainnet"
+    "deploy": "truffle migrate -f 2 -to 2"
   },
   "repository": {
     "type": "git",
