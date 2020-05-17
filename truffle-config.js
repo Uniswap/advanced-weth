@@ -32,6 +32,15 @@ module.exports = {
       gasPrice: 10 ** 9,
       skipDryRun: true
     },
+    goerli: {
+      provider: () => new HDWalletProvider(mnemonic, `https://goerli.infura.io/v3/${infuraKey}`),
+      network_id: 5,
+      gas: 10 ** 6,
+      confirmations: 2,
+      timeoutBlocks: 20,
+      gasPrice: 10 ** 9,
+      skipDryRun: true
+    },
     kovan: {
       provider: () => new HDWalletProvider(mnemonic, `https://kovan.infura.io/v3/${infuraKey}`),
       network_id: 42,

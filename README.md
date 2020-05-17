@@ -41,17 +41,16 @@ The constructor has a single argument, the WETH contract address.
 
 ## Deploy addresses
 
-The network addresses are contained in the build artifact for
-programmatic consumption.
-The AdvancedWETH contract is deployed and verified to the address 
-`0x` on the networks:
+The build artifacts in the npm package contain the deployment addresses for programmatic consumption.
 
-- mainnet: https://etherscan.io/address/0x
-- ropsten: https://ropsten.etherscan.io/address/0x
-- rinkeby: https://rinkeby.etherscan.io/address/0x
-- kovan: https://kovan.etherscan.io/address/0x
+The AdvancedWETH contract is deployed and verified to the address `0x27E90122950c9E4E669edcC90Fac6c105770420b` 
+on the networks:
 
-It is not deployed to Goerli because WETH is not deployed to Goerli.
+- mainnet: https://etherscan.io/address/0x27E90122950c9E4E669edcC90Fac6c105770420b
+- ropsten: https://ropsten.etherscan.io/address/0x27E90122950c9E4E669edcC90Fac6c105770420b
+- rinkeby: https://rinkeby.etherscan.io/address/0x27E90122950c9E4E669edcC90Fac6c105770420b
+- kovan: https://kovan.etherscan.io/address/0x27E90122950c9E4E669edcC90Fac6c105770420b
+- goerli: https://goerli.etherscan.io/address/0x27E90122950c9E4E669edcC90Fac6c105770420b
 
 ## Disclaimer
 
