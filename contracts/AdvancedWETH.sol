@@ -1,9 +1,9 @@
 pragma solidity =0.6.7;
 
 import "./interfaces/IWETH9.sol";
-import "./interfaces/IWrappedWETH.sol";
+import "./interfaces/IAdvancedWETH.sol";
 
-contract WrappedWETH is IWrappedWETH {
+contract AdvancedWETH is IAdvancedWETH {
     address payable public override immutable weth;
 
     // create the wrapped WETH contract

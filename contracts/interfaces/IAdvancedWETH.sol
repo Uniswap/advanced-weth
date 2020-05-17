@@ -3,7 +3,7 @@ pragma solidity >=0.4.0;
 // wrapped WETH contract. to use, approve the contract to spend all your WETH.
 // unlocks additional features for your WETH, that allow you to spend and mint WETH in a single transaction.
 // also has methods for unwrapping WETH to specific addresses as callback from other contracts.
-interface IWrappedWETH {
+interface IAdvancedWETH {
     // returns the WETH address that this contract wraps
     function weth() external view returns (address payable);
 

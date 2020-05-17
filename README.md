@@ -1,6 +1,6 @@
-# wrapped-weth
+# advanced-weth
 
-A smart contract that wraps the
-[WETH](https://github.com/gnosis/canonical-weth) smart contract
-to add advanced functionality that is useful
-for interacting with other smart contracts in a single transaction.
+A smart contract that adds functionality to the
+[Wrapped Ether](https://github.com/gnosis/canonical-weth) 
+smart contract which allows users to interact with other smart
+contracts that consume WETH via a single transaction.

@@ -1,5 +1,4 @@
-const WrappedWETH = artifacts.require('WrappedWETH');
-const WETH = artifacts.require('WETH9')
+const AdvancedWETH = artifacts.require('AdvancedWETH');
 const { networks: WETHNetworks } = require('canonical-weth/build/contracts/WETH9.json');
 
 const NetworkKeys = {
@@ -11,6 +10,6 @@ const NetworkKeys = {
 
 module.exports = function (deployer, network) {
   if (network in NetworkKeys) {
-    deployer.deploy(WrappedWETH, NetworkKeys[network]);
+    deployer.deploy(AdvancedWETH, WETHNetworks[ NetworkKeys[ network ] ].address);
   }
 };

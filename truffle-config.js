@@ -2,37 +2,43 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 const fs = require('fs');
 const { mnemonic, infuraKey } = JSON.parse(fs.readFileSync('.secrets.json', 'utf-8'));
-const provider = () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`);
 
 module.exports = {
   networks: {
     mainnet: {
-      provider,
+      provider: () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`),
       network_id: 1,
       gas: 2000000,
       confirmations: 2,
-      timeoutBlocks: 200
+      timeoutBlocks: 200,
+      skipDryRun: true
     },
     ropsten: {
-      provider,
+      provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/${infuraKey}`),
       network_id: 3,
       gas: 2000000,
       confirmations: 2,
-      timeoutBlocks: 20
+      timeoutBlocks: 20,
+      gasPrice: 1,
+      skipDryRun: true
     },
     rinkeby: {
-      provider,
+      provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
       network_id: 4,
       gas: 2000000,
       confirmations: 2,
-      timeoutBlocks: 20
+      timeoutBlocks: 20,
+      gasPrice: 1,
+      skipDryRun: true
     },
     kovan: {
-      provider,
+      provider: () => new HDWalletProvider(mnemonic, `https://kovan.infura.io/v3/${infuraKey}`),
       network_id: 42,
       gas: 2000000,
       confirmations: 2,
-      timeoutBlocks: 20
+      timeoutBlocks: 20,
+      gasPrice: 1,
+      skipDryRun: true
     }
   },
 
