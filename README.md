@@ -34,7 +34,9 @@ file to deploy the contract for unit tests.
 Note only the interface solidity code is shared in the npm package.
 This is because to deploy the contract on a testnet, you should use
 the build artifact to get an exact copy of the AdvancedWETH contract
-regardless of local solc compiler settings. 
+regardless of local solc compiler settings.
+
+The constructor has a single argument, the WETH contract address.
 
 ## Deploy addresses
 
