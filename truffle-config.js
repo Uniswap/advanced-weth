@@ -8,10 +8,10 @@ module.exports = {
     mainnet: {
       provider: () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`),
       network_id: 1,
-      gas: 10 ** 6, // 1 million
+      gas: 7 * (10 ** 5), // 700k
       confirmations: 2,
       timeoutBlocks: 200,
-      gasPrice: 30 ** 10, // 10 gwei
+      gasPrice: 12.2 * (10 ** 9),
       skipDryRun: true
     },
     ropsten: {
