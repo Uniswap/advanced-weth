@@ -1,7 +1,7 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 const fs = require('fs');
-const { mnemonic, infuraKey } = JSON.parse(fs.readFileSync('.secrets.json', 'utf-8'));
+const { mnemonic, infuraKey, etherscanApiKey } = JSON.parse(fs.readFileSync('.secrets.json', 'utf-8'));
 
 module.exports = {
   networks: {
@@ -53,5 +53,13 @@ module.exports = {
         evmVersion: 'istanbul'
       }
     }
+  },
+
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+
+  api_keys: {
+    etherscan: etherscanApiKey
   }
 };

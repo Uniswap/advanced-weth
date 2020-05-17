@@ -7,7 +7,8 @@
     "@truffle/hdwallet-provider": "^1.0.35",
     "bn.js": "^5.1.1",
     "canonical-weth": "^1.4.0",
-    "truffle": "^5.1.26"
+    "truffle": "^5.1.26",
+    "truffle-plugin-verify": "^0.3.10"
   },
   "scripts": {
     "compile": "truffle compile",
