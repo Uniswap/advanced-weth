@@ -22,8 +22,9 @@
     "build",
     "!build/contracts/WETH9.json",
     "!build/contracts/Migrations.json",
-    "contracts/AdvancedWETH.sol",
-    "contracts/interfaces"
+    "contracts",
+    "!contracts/Migrations.sol",
+    "!contracts/test"
   ],
   "keywords": [
     "smart",
