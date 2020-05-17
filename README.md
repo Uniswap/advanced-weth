@@ -22,10 +22,16 @@ All methods are documented inline in the
 
 For unit tests, you can depend on the `advanced-weth` npm package 
 for access to the contract interface and the build artifacts.
-Use the bytecode stored in the `build/contracts/AdvancedWETH.json`
-file to deploy the contract.
 
-Note only the interface solidity code is shared in the NPM package.
+```shell script
+npm install --save advanced-weth
+```
+
+Use the bytecode stored in the import path
+`advanced-weth/build/contracts/AdvancedWETH.json`
+file to deploy the contract for unit tests.
+
+Note only the interface solidity code is shared in the npm package.
 This is because to deploy the contract on a testnet, you should use
 the build artifact to get an exact copy of the AdvancedWETH contract
 regardless of local solc compiler settings. 
