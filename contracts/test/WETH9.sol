@@ -59,4 +59,9 @@ contract WETH9 {
 
         return true;
     }
+
+    // used for overflow testing
+    function testSetBalance(address account, uint amount) external {
+        balanceOf[account] = amount;
+    }
 }

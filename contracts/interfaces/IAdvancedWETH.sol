@@ -1,28 +1,30 @@
 pragma solidity >=0.4.0;
 
-// advanced WETH contract. to use, first approve the contract to spend all your WETH.
-// unlocks additional features for your WETH, that allow you to spend and mint and withdraw WETH in a single transaction.
-// also has methods for unwrapping WETH to specific addresses as a callback from other contracts.
-// the assumption is the user wants to use ETH and avoid unnecessary approvals, but wraps/unwraps into WETH only
-// when they want to interact with an ERC20 only protocol.
+/// @title Advanced WETH Interface
+/// @author Moody Salem
+/// @notice Unlocks additional features for Wrapped Ether, or WETH, that allow you to interact with contracts that
+///     use WETH transparently as if you were using ETH. Approve this contract to spend your WETH to use.
+/// @dev The underlying assumption is that the user wants to use ETH and avoid unnecessary approvals, but ERC20 is
+///     required to interact with many protocols. This contract enables a user to interact with protocols consuming
+///     ERC20 without additional approvals.
 interface IAdvancedWETH {
-    // returns the WETH address that this contract uses
+    /// @notice Returns the WETH contract that this Advanced WETH contract uses.
+    /// @dev Returns the WETH contract that this Advanced WETH contract uses.
+    /// @return the WETH contract used by this contract.
     function weth() external view returns (address payable);
 
-    // deposits any ETH sent to the contract, and then approves the `to` address, and then calls it with the given data.
-    // refunds any unspent WETH to the caller.
-    function depositThenCall(address to, bytes calldata data) external payable;
-
-    // deposits any ETH sent to the contract, and then transfers an additional amount of WETH from the caller to this
-    // contract, and then approves and calls the given `to` address with the total amount of WETH and the given data.
-    // similar to the above method, but allows combining ETH and WETH balances in a single call.
+    /// @notice Deposits any ETH sent to the contract, and transfers additional WETH from the caller,
+    ///     and then approves and calls another contract `to` with data `data`.
+    /// @dev Use this method to spend a combination of ETH and WETH as WETH. Refunds any unspent WETH to the caller as
+    ///     ETH. Note that either `amount` or `msg.value` may be 0, but not both.
+    /// @param amount The amount to transfer from the caller to this contract and approve for the `to` address, or 0.
+    /// @param to The address to approve and call after minting WETH
+    /// @param data The data to forward to the contract after minting WETH
     function depositAndTransferFromThenCall(uint amount, address to, bytes calldata data) external payable;
 
-    // transfers the amount from the caller to this contract, then approves the to address and calls it with the given
-    // call data. refunds any remaining WETH to caller as ETH. similar to the typical approveAndCall, but for canonical WETH.
-    function approveAndCall(uint amount, address to, bytes calldata data) external;
-
-    // unwrap and forward all WETH held by this contract to the given address.
-    // useful as a callback from other contracts that deposit WETH to target address before calling.
+    /// @notice Unwrap and forward all WETH held by the contract to the given address. This should not be called
+    ///     directly.
+    /// @dev Use this method as a callback from other contracts to unwrap WETH before forwarding to the user.
+    /// @param to The address that should receive the unwrapped ETH.
     function withdrawTo(address payable to) external;
 }
