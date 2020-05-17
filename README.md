@@ -3,11 +3,15 @@
 A smart contract that adds functionality to the
 [Wrapped Ether](https://github.com/gnosis/canonical-weth) 
 smart contract which allows users to interact with other smart
-contracts that consume WETH transparently as if they are using WETH.
+contracts that consume WETH transparently as if they are using ETH directly.
 
 Requires a single approval from the user for the AdvancedWETH contract
 to spend any amount of their WETH, and thus benefits from widespread use of a
-canonical advanced WETH contract.
+canonical advanced WETH contract. Because this approval never runs out or expires,
+this is a once-per-account requirement.
+
+The benefit of removing special handling of ETH from your contract is that
+you can reduce your interface size significantly.
 
 ## Methods documentation
 
