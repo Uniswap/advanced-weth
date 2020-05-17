@@ -5,7 +5,6 @@ pragma solidity >=0.4.0;
 // also has methods for unwrapping WETH to specific addresses as a callback from other contracts.
 // the assumption is the user wants to use ETH and avoid unnecessary approvals, but wraps/unwraps into WETH only
 // when they want to interact with an ERC20 only protocol.
-// SPDX-License-Identifier: GPL-3.0-or-later
 interface IAdvancedWETH {
     // returns the WETH address that this contract uses
     function weth() external view returns (address payable);

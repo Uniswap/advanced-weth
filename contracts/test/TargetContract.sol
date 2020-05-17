@@ -2,7 +2,6 @@ pragma solidity >=0.6.0;
 
 import "../interfaces/IWETH9.sol";
 
-// SPDX-License-Identifier: GPL-3.0-or-later
 contract TargetContract {
     uint private acceptETH;
     uint private acceptWETH;

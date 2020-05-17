@@ -1,10 +1,9 @@
-pragma solidity =0.6.8;
+pragma solidity =0.6.7;
 
 import "./interfaces/IWETH9.sol";
 import "./interfaces/IAdvancedWETH.sol";
 
 // see interface for documentation
-// SPDX-License-Identifier: GPL-3.0-or-later
 contract AdvancedWETH is IAdvancedWETH {
     address payable public override immutable weth;
 

@@ -7,17 +7,16 @@
     "@truffle/hdwallet-provider": "^1.0.35",
     "bn.js": "^5.1.1",
     "canonical-weth": "^1.4.0",
-    "truffle": "^5.1.26",
-    "truffle-plugin-verify": "^0.3.10"
+    "truffle": "^5.1.26"
   },
   "scripts": {
     "compile": "truffle compile",
     "test": "truffle test",
     "deploy": "truffle migrate -f 2 -to 2",
-    "deploy:testnets": "npm run deploy --network kovan && npm run deploy --network ropsten && npm run deploy --network rinkeby",
-    "deploy:mainnet": "npm run deploy --network mainnet",
-    "verify:testnets": "truffle run verify AdvancedWETH --network kovan && truffle run verify AdvancedWETH --network ropsten && truffle run verify AdvancedWETH --network rinkeby",
-    "verify:mainnet": "truffle run verify AdvancedWETH --network mainnet"
+    "deploy:kovan": "npm run deploy -- --network kovan",
+    "deploy:ropsten": "npm run deploy -- --network ropsten",
+    "deploy:rinkeby": "npm run deploy -- --network rinkey",
+    "deploy:mainnet": "npm run deploy -- --network mainnet"
   },
   "repository": {
     "type": "git",

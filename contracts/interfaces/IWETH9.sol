@@ -1,6 +1,5 @@
 pragma solidity >=0.4.0;
 
-// SPDX-License-Identifier: GPL-3.0-or-later
 interface IWETH9 {
     function name() external view returns (string memory);
 
