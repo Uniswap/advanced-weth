@@ -105,6 +105,20 @@ contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
       expect((await weth.balanceOf(account0)).toNumber()).to.eq(0);
       expect((await weth.balanceOf(targetContract.address)).toNumber()).to.eq(20);
     });
+
+    it('reverts on failure', async () => {
+      await targetContract.update(0, 0);
+
+      await recordBalanceBefore(account0);
+      await expectError(advancedWeth.depositThenCall(targetContract.address, encodeTargetCallData(weth.address, 20), {
+        value: 25,
+        gasPrice: 0
+      }), 'TO_CALL_FAILED');
+
+      await checkBalanceDifference(account0, 0);
+      expect((await weth.balanceOf(account0)).toNumber()).to.eq(0);
+      expect((await weth.balanceOf(targetContract.address)).toNumber()).to.eq(0);
+    });
   });
 
   describe('#depositAndTransferFromThenCall', () => {
@@ -134,6 +148,26 @@ contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
       await checkBalanceDifference(account0, -10);
       expect((await weth.balanceOf(account0)).toNumber()).to.eq(80);
       expect((await weth.balanceOf(targetContract.address)).toNumber()).to.eq(30);
+    });
+
+    it('reverts on missing approval', async () => {
+      await targetContract.update(0, 100); // allow receiving up to 100 weth
+
+      await recordBalanceBefore(account0);
+      await expectError(advancedWeth.depositAndTransferFromThenCall(20, targetContract.address, encodeTargetCallData(weth.address, 30), {
+        value: 20,
+        gasPrice: 0
+      }), 'revert');
+    });
+
+    it('reverts on target contract failed receive', async () => {
+      await weth.approve(advancedWeth.address, 20, { from: account0 });
+      await targetContract.update(0, 0); // allow receiving up to 100 weth
+
+      await expectError(advancedWeth.depositAndTransferFromThenCall(20, targetContract.address, encodeTargetCallData(weth.address, 30), {
+        value: 20,
+        gasPrice: 0
+      }), 'TO_CALL_FAILED');
     });
   });
 
