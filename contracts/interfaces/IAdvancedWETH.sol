@@ -23,6 +23,6 @@ interface IAdvancedWETH {
     function approveAndCall(uint amount, address to, bytes calldata data) external;
 
     // unwrap and forward all WETH held by this contract to the given address.
-    // useful as a callback from other contracts.
+    // useful as a callback from other contracts that deposit WETH to target address before calling.
     function withdrawTo(address payable to) external;
 }
