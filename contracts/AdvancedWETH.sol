@@ -6,7 +6,6 @@ import "./interfaces/IAdvancedWETH.sol";
 contract AdvancedWETH is IAdvancedWETH {
     address payable public override immutable weth;
 
-    // create the wrapped WETH contract
     constructor(address payable weth_) public {
         weth = weth_;
     }
