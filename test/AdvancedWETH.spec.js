@@ -1,7 +1,6 @@
 const WETH = artifacts.require('WETH9');
 const AdvancedWETH = artifacts.require('AdvancedWETH');
 const TargetContract = artifacts.require('TargetContract');
-const TargetContractJSON = require('../build/contracts/TargetContract');
 const BN = require('bn.js');
 
 contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
