@@ -22,8 +22,8 @@ interface IAdvancedWETH {
     /// @param data The data to forward to the contract after minting WETH
     function depositAndTransferFromThenCall(uint amount, address to, bytes calldata data) external payable;
 
-    /// @notice Unwrap and forward all WETH held by the contract to the given address. This should not be called
-    ///     directly.
+    /// @notice Unwrap and forward all WETH held by the contract to the given address. This should never be called
+    ///     directly, but rather as a callback from a contract call that results in sending WETH to this contract.
     /// @dev Use this method as a callback from other contracts to unwrap WETH before forwarding to the user.
     /// @param to The address that should receive the unwrapped ETH.
     function withdrawTo(address payable to) external;
