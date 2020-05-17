@@ -1,0 +1,40 @@
+{
+  "name": "wrapped-weth",
+  "version": "1.0.0",
+  "description": "Wrapped WETH contract that adds advanced functionality to WETH",
+  "author": "Moody Salem",
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.0.35",
+    "canonical-weth": "^1.4.0",
+    "truffle": "^5.1.26"
+  },
+  "scripts": {
+    "compile": "truffle compile",
+    "test": "truffle test",
+    "prepublishOnly": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moodysalem/wrapped-weth.git"
+  },
+  "files": [
+    "build",
+    "contracts/WrappedWETH.sol",
+    "contracts/interfaces"
+  ],
+  "keywords": [
+    "smart",
+    "contract",
+    "wrapped",
+    "ether",
+    "wrap",
+    "WETH",
+    "advanced",
+    "utility"
+  ],
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/moodysalem/wrapped-weth/issues"
+  },
+  "homepage": "https://github.com/moodysalem/wrapped-weth#readme"
+}
