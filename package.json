@@ -5,6 +5,7 @@
   "author": "Moody Salem",
   "devDependencies": {
     "@truffle/hdwallet-provider": "^1.0.35",
+    "bn.js": "^5.1.1",
     "canonical-weth": "^1.4.0",
     "truffle": "^5.1.26"
   },
@@ -19,6 +20,8 @@
   },
   "files": [
     "build",
+    "!build/contracts/WETH9.json",
+    "!build/contracts/Migrations.json",
     "contracts/AdvancedWETH.sol",
     "contracts/interfaces"
   ],

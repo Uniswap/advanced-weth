@@ -4,7 +4,7 @@ pragma solidity >=0.4.0;
 // unlocks additional features for your WETH, that allow you to spend and mint and withdraw WETH in a single transaction.
 // also has methods for unwrapping WETH to specific addresses as a callback from other contracts.
 interface IAdvancedWETH {
-    // returns the WETH address that this contract wraps
+    // returns the WETH address that this contract uses
     function weth() external view returns (address payable);
 
     // deposits any ETH sent to the contract, and then approves the `to` address, and then calls it with the given data.

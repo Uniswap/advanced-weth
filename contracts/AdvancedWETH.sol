@@ -44,12 +44,15 @@ contract AdvancedWETH is IAdvancedWETH {
         withdrawTo(msg.sender);
     }
 
+    // only the weth contract can send ETH via withdraw
+    receive() payable external { require(msg.sender == weth, 'WETH_ONLY'); }
+
     // see interface for documentation
     function withdrawTo(address payable to) public override {
-        uint balance = IWETH9(weth).balanceOf(address(this));
-        if (balance > 0) {
-            IWETH9(weth).withdraw(balance);
-            (bool success,) = to.call{value: balance}('');
+        uint wethBalance = IWETH9(weth).balanceOf(address(this));
+        if (wethBalance > 0) {
+            IWETH9(weth).withdraw(wethBalance);
+            (bool success,) = to.call{value: wethBalance}('');
             require(success, 'WITHDRAW_TO_CALL_FAILED');
         }
     }
