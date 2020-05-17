@@ -28,6 +28,9 @@ for access to the contract interface and the build artifacts.
 npm install --save advanced-weth
 ```
 
+You can browse the build artifacts included in the npm package
+via [unpkg.com/advanced-weth@1.0.0/](https://unpkg.com/browse/advanced-weth@1.0.0/).
+
 Use the bytecode stored in the import path
 `advanced-weth/build/contracts/AdvancedWETH.json`
 file to deploy the contract for unit tests.
