@@ -1,10 +1,12 @@
 const WETH = artifacts.require('WETH9');
 const AdvancedWETH = artifacts.require('AdvancedWETH');
+const TargetContract = artifacts.require('TargetContract');
 const BN = require('bn.js');
 
 contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
   let weth;
   let advancedWeth;
+  let targetContract;
 
   let balancesBefore;
 
@@ -25,6 +27,17 @@ contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
     return web3.eth.sendTransaction({ to, value: amount, from });
   }
 
+  async function expectError(fn, msg) {
+    let threw = false;
+    try {
+      await (typeof fn === 'function' ? fn() : fn);
+    } catch (error) {
+      threw = true;
+      expect(error.message).to.contain(msg);
+    }
+    expect(threw).to.eq(true);
+  }
+
   beforeEach('reset balancesBefore', () => {
     balancesBefore = {};
   });
@@ -35,6 +48,10 @@ contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
 
   beforeEach('deploy AdvancedWETH', async () => {
     advancedWeth = await AdvancedWETH.new(weth.address);
+  });
+
+  beforeEach('deploy TargetContract', async () => {
+    targetContract = await TargetContract.new();
   });
 
   it('is deployed', () => {
@@ -48,14 +65,7 @@ contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
 
   describe('#receive', () => {
     it('can only receive from weth', async () => {
-      let threw = false;
-      try {
-        await sendETH(advancedWeth.address, 1, account0);
-      } catch (error) {
-        threw = true;
-        expect(error.message).to.contain('WETH_ONLY');
-      }
-      expect(threw).to.eq(true);
+      await expectError(sendETH(advancedWeth.address, 1, account0), 'WETH_ONLY');
     });
   });
 
@@ -87,6 +97,11 @@ contract('AdvancedWETH', ([account0, account1, account2, account3]) => {
       await weth.transfer(advancedWeth.address, 25, { from: account0 });
       await advancedWeth.withdrawTo(weth.address, { from: account0 });
       expect((await weth.balanceOf(advancedWeth.address)).toNumber()).to.eq(25);
-    })
+    });
+
+    it('fails if to address does not receive eth', async () => {
+      await weth.transfer(advancedWeth.address, 25, { from: account0 });
+      await expectError(advancedWeth.withdrawTo(targetContract.address, { from: account0 }), 'WITHDRAW_TO_CALL_FAILED');
+    });
   });
 });

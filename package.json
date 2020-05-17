@@ -22,6 +22,7 @@
     "build",
     "!build/contracts/WETH9.json",
     "!build/contracts/Migrations.json",
+    "!build/contracts/TargetContract.json",
     "contracts",
     "!contracts/Migrations.sol",
     "!contracts/test"
